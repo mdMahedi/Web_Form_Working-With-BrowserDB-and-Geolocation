@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <link href="design.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="msg">Refresh to Scramble..</div>
+    <div id="gbox"></div>
+</body>
+</html>
+<script>
+    var boxes = 16;
+    var emptBox;
+    var $drgItem;
+
+    $(document).ready(function () {
+        createBox();
+        addValue();
+
+        $('#gbox').on('dragstart', drgStart);
+        $('#gbox').on('dragend', drgEnd);
+        $('#gbox').on('dragenter', pDefault);
+        $('#gbox').on('dragover', pDefault);
+        $('#gbox').on('drop', drop);
+    });
+
+    function createBox() {
+        for (var n = 0; n < boxes; n++) {
+            var $sqr = $('<div id="sqr' + n + '" data-square="' + n + '" class="sqr"></div>');
+            $sqr.appendTo($('#gbox'));
+        }
+    }
+
+    function addValue() {
+        emptBox = boxes - 1;
+        for (var i = 0; i < emptBox; i++) {
+            var $sqr = $('#sqr'+i);
+            var $val = $('<div id="val' + i + '" draggable="true" class="val">' + (i + 1) + '</div>');
+            $val.appendTo($sqr);
+        }
+    }
+
+    function drgStart(e) {
+        $(e.target).addClass('drg');
+        $drgItem = $(e.target);
+    }
+
+    function drgEnd(e) {
+        $(e.target).removeClass('drg');
+    }
+
+    function pDefault(e) {
+        e.preventDefault();
+    }
+
+    function drop(e) {
+        var a = $(e.target);
+        if (a.hasClass('sqr') && a.children().length == 0) {
+            $drgItem.detach();
+            $drgItem.appendTo($(e.target));
+        }
+    }
+</script>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="XSLTFile1.xslt"?>
+<!DOCTYPE books[
+  <!ELEMENT books (book,music)>
+  <!ELEMENT book (id,name,price)>
+  <!ATTLIST book author CDATA #FIXED "1">
+  <!ELEMENT id (#PCDATA)>
+  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT price (#PCDATA)>
+  <!ELEMENT music (artist,writer,publish)>
+  <!ATTLIST music id CDATA #IMPLIED>
+  <!ELEMENT artist (#PCDATA)>
+  <!ELEMENT writer (#PCDATA)>
+  <!ELEMENT publish (#PCDATA)>
+]>
+<books>
+  <book>
+    <id>100</id>
+    <name>C#</name>
+    <price>1500</price>
+  </book>
+  <book>
+    <id>200</id>
+    <name>CF</name>
+    <price>1200</price>
+  </book>
+  <book>
+    <id>300</id>
+    <name>UML</name>
+    <price>850</price>
+  </book>
+  <music>
+    <artist>Pantho</artist>
+    <writer>Kanai</writer>
+    <publish>2013</publish>
+  </music>
+  <music id="10">
+    <artist>Habib</artist>
+    <writer>hafiz</writer>
+    <publish>2014</publish>
+  </music>
+  <music>
+    <artist>Himel</artist>
+    <writer>Misu</writer>
+    <publish>2013</publish>
+  </music>
+</books>

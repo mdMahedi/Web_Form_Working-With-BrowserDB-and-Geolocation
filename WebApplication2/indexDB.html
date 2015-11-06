@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><label>ID</label></td>
+            <td><input id="t1" type="text" /></td>
+        </tr>
+        <tr>
+            <td><label>First Name</label></td>
+            <td><input id="t2" type="text" /></td>
+        </tr>
+        <tr>
+            <td><label>Last Name</label></td>
+            <td><input id="t3" type="text" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input id="bsave" type="button" value="button" /></td>
+        </tr>
+    </table>
+</body>
+</html>
+<script>
+    window.indexedDB = window.indexedDB || window.webkitIndexedDB ||
+        window.mozIndexedDB || window.msIndexedDB;
+    window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction;
+    window.IDBCursor = window.IDBCursor || window.webkitIDBCursor;
+    window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange;
+
+    var exDB;
+    var table;
+    var transection;
+    var dbCreated = false;
+
+    function createDB() {
+        exDB = window.indexedDB.open('StudentDB', 1);
+        exDB.onupgradeneeded = function (e) {
+            var stDB = e.target.result;
+            transection = e.target.result;
+
+            table = stDB.createObjectStore('Students', { keypath: 'id' });
+            var col = { unique: false, multientry: false };
+            table.createIndex("fname", "FirstName", col);
+            table.createIndex("lname", "LastName", col);
+        }
+        exDB.onsuccess = function (e) {
+            if (dbCreated) {
+                var dd = e.target.result;
+                transection = e.target.result;
+                var dbName = transection.name;
+            }
+        };
+        dbCreated = true;
+        alert('database created..')
+    }
+
+    window.addEventListener('load', createDB, false);
+</script>

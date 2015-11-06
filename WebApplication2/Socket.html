@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <h2>WebSocket Test..</h2>
+    <label>Your Message : </label>
+    <input id="txtMessage" type="text" />
+    <input id="btnSend" type="button" value="button" />
+    <div id="message"></div>
+</body>
+</html>
+<script>
+    var wsUri = 'ws://echo.websocket.org/'
+    var webSocket;
+
+    $(document).ready(function () {
+        if (checkSupport()) {
+            $('#btnSend').click(doSend);
+        }
+    });
+
+    function writeOutput(msg) {
+        var output = $('#message');
+        output.html(output.html() + '<br/>' + msg);
+    }
+
+    function checkSupport() {
+        if (window.WebSocket) {
+            writeOutput('websocket Supported..');
+            return true;
+        }
+        else {
+            writeOutput('websocket not supported..');
+            $('#btnSend').attr('disabled', 'disabled');
+            return false;
+        }
+    }
+
+    function doSend() {
+        webSocket = new WebSocket(wsUri);
+        webSocket.onopen = (function () { });
+        if (webSocket.readyState != webSocket.OPEN) {            
+            writeOutput("Not Open : " + $('#txtMessage').val());
+            return;
+        }
+        writeOutput("SENT : " + $('#txtMessage').val());
+        webSocket.send($('#txtMessage').val());
+    }
+
+
+</script>

@@ -1,0 +1,41 @@
+﻿body {
+    font-family:Arial,Verdana,sans-serif;
+}
+
+#gbox {
+    width:345px;
+    height:345px;
+    margin:auto;
+}
+
+#msg {
+    width:345px;
+    height:80px;
+    font-size:36px;
+    color:lime;
+    text-align:center;
+    margin-right:auto;
+    margin-left:auto;
+    background-color:black;
+}
+
+.val {
+    font-size:64px;
+    width:80px;
+    height:80px;
+    background-color:gray;
+    color:white;
+    text-align:center;
+}
+
+.sqr {
+    background-color:black;
+    border:solid;
+    width:80px;
+    height:80px;
+    float:left;
+}
+
+.drg {
+    background-color:red;
+}

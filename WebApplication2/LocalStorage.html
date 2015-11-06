@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><label>ID</label></td>
+            <td><input id="t1" type="text" /></td>
+        </tr>
+        <tr>
+            <td><label>First Name</label></td>
+            <td><input id="t2" type="text" /></td>
+        </tr>
+        <tr>
+            <td><label>Last Name</label></td>
+            <td><input id="t3" type="text" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input id="bsave" type="button" value="button" /></td>
+        </tr>
+    </table>
+    <table id="tbl">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </table> 
+    <p id="p1"></p> 
+</body>
+</html>
+<script>
+    function saveValue() {
+        var id = t1.value;
+        var fname = t2.value;
+        var lname = t3.value;
+
+        var res = 'Student ID : ' + id + 'Student Name : ' + fname + ' ' + lname;
+        localStorage.setItem('value', res);
+
+        
+    }
+
+    function showValue() {
+        var table = document.getElementById("tbl");
+        //var a = { unique: true };
+        var row = table.insertRow(1);
+        var r1 = row.insertCell(0);
+        var r2 = row.insertCell(1);
+        var r3 = row.insertCell(2);
+
+        r1.innerHTML = t1.value;
+        r2.innerHTML = (t2.value) + ' ' + (t3.value);
+        r3.innerHTML = '<a id="srch" href="javascript:void(0)" data-key="id" >Edit</a>';
+        //r3.innerHTML = '<button id="btn'+a+'" type="button"><a id="srch" href="javascript:void(0)" data-key="id" >Edit</a></button>';
+    }
+
+    function editValue() {
+        function getValue() {
+            var a = localStorage.getItem('value');
+            document.getElementById('tbl').innerHTML = a;
+        }
+    }
+
+    window.addEventListener('load', saveValue, false);
+    bsave.addEventListener('click', showValue, false);
+    
+</script>

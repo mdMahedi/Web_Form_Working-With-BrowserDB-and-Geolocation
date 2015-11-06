@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+</head>
+<body>
+    <h2>WebSocket Test..</h2>
+    <label>Your Massege :</label>
+    <input id="t1" type="text" />
+    <input id="btnSend" type="button" value="Send" />
+    <div id="divOutput"></div>
+</body>
+</html>
+
+<script>
+    var wsUri = 'ws://echo.websocket.org/'
+    var webSocket;
+
+    $(document).ready(function () {
+        if (checkSupported()) {
+            connect();
+            $('#btnSend').click(doSend);
+        }
+    });
+
+    function writeOutput(message) {
+        var output = $("#divOutput");
+        output.html(output.html() + '</br>' + message);
+    }
+
+    function checkSupported() {
+        if (window.WebSocket) {
+            writeOutput('WebSockets Supported.');
+            return true;
+        }
+        else {
+            writeOutput('WebSockets Not Supported.');
+            $('#btnSend').attr('disabled', 'disabled');
+            return false;
+        }
+    }
+
+    function connect() {
+        webSocket = new WebSocket(wsUri);
+        webSocket.onopen = function (e) {onOpen(e) };
+    }
+
+    function doSend() {
+        //webSocket = new WebSocket(wsUri);
+        //webSocket.onopen = function (e) { onOpen(e) };
+        if (webSocket.readyState != webSocket.OPEN) {
+            writeOutput("Not Open : " + $('#t1').val());
+            return;
+        }
+        writeOutput("SENT : " + $('#t1').val());
+        webSocket.send($('#t1').val());
+    }
+
+    function onOpen(e) {
+        writeOutput('Connected.')
+    }
+</script>
